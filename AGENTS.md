@@ -33,6 +33,17 @@ This baseline is always active. The full examples and checklist remain in the `h
 - Use specific numbers and named baselines when available. Keep `novel` to at most one occurrence in an abstract and use `leverage` zero times in academic prose unless it is a literal technical term.
 - In methodology and related-work limitation paragraphs, use a causal explanation such as `By X, Y` when it accurately describes the mechanism; do not force the pattern when the evidence does not support it.
 
+## Mandatory Sentence-per-Line Formatting
+
+**强制规则：写完一句立即换行，每个完整句子必须独占一个物理行，禁止整段写在同一行。**
+
+- Apply this rule to all newly written or revised Chinese and English prose, including LaTeX abstracts, body text, captions, footnotes, Markdown documents, and review responses.
+- Insert a literal newline after each complete sentence, keeping its citations, inline math, and closing markup with that sentence.
+- Separate paragraphs with a blank line to preserve paragraph structure and rendered typesetting.
+- Do not hard-wrap a sentence at a fixed column width or insert LaTeX `\\` or `\newline` merely to satisfy this source-formatting rule.
+- Identify complete sentences by meaning, without treating abbreviations, decimal points, URLs, or LaTeX commands as sentence boundaries.
+- Skill examples do not override this mandatory formatting requirement.
+
 ## Task Intake
 
 Before writing or editing, identify (or state as unknown):
@@ -90,6 +101,7 @@ For a LaTeX task, choose `latex-ieee-paper` or `latex-ieee-conference` from the 
 - All in-text citations resolve to the intended bibliography entries; no bibliography entry is silently orphaned.
 - Every numbered float, section, equation, and algorithm has a stable label and is referenced with the selected convention.
 - Figure/table captions, notes, units, legends, scale bars, symbols, and data-source statements are complete.
+- Every newly written or revised prose sentence occupies its own physical source line, with blank lines retained between paragraphs.
 - Numbers, metrics, units, acronyms, tense, capitalization, and notation are consistent.
 - The final section does not introduce unsupported new findings, comparisons, terminology, or citations.
 
