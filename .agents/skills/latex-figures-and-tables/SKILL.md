@@ -1,6 +1,6 @@
 ---
 name: latex-figures-and-tables
-description: "LaTeX 实现模式 + caption 表注图注写作风格，全链路覆盖 CV/Robotics/IP 顶会 camera-ready 规范"
+description: "LaTeX figures, comparison tables, captions, and notes using the actual venue template and project formatting preferences"
 metadata:
   migrated-from: "latex-figures-and-tables.mdc"
   source-always-apply: "false"
@@ -9,22 +9,29 @@ metadata:
 
 ## Codex Invocation
 
-Use this skill when the task matches the source rule's scope or when the user names this section/artifact. Apply it after the project-level AGENTS.md intake and alongside only the focused skills required by the task.
-The source Cursor glob was **/{main,paper,manuscript,ms,article,tex,submission}.{tex,sty}; Codex dispatches by task and artifact instead of evaluating Cursor glob syntax.
-Do not invent missing evidence to satisfy a pattern. If a source rule requires a dataset, numeric result, code URL, limitation, or venue convention that is unavailable, mark it as missing and report the verification item.
+Use this skill when the task matches the source rule's scope or when the user names this section/artifact.
+Apply it after the project-level AGENTS.md intake and alongside only the focused skills required by the task.
+The source Cursor glob was `**/{main,paper,manuscript,ms,article,tex,submission}.{tex,sty}`.
+Codex dispatches by task and artifact instead of evaluating Cursor glob syntax.
+Do not invent missing evidence to satisfy a pattern.
+If a source rule requires a dataset, numeric result, code URL, limitation, or venue convention that is unavailable, mark it as missing and report the verification item.
 
 # Figures and Tables (LaTeX + Writing Style)
 
 > **Note**: Applies to `main.tex` whenever `IEEEtran` + `subfig` + `booktabs` are loaded.
 > Covers both single `\begin{figure}` and multi-subfigure `\subfloat` patterns.
->
-> **Source baseline**: CV/Robotics/IP universal top-tier conventions —
-> IEEE T-PAMI, TIP, CVPR, ICCV, ECCV, ICRA, IROS camera-ready standards.
+> **Scope**: These are project examples and defaults, subject to the actual venue template.
+> The `\subfloat` examples require `subfig`, with IEEEtran caption handling preserved by appropriate package options.
+
+Load the packages needed by the selected example, respecting the actual template.
+The examples use `graphicx` for images, `booktabs` for rules, `xcolor` for color markings, `threeparttable` for table notes, and `subfig` for `\subfloat`.
+For standard IEEEtran, use appropriate `subfig` options such as `caption=false` to preserve the class caption format.
 
 ## Constants
 
 - **FIG_DIR**: `figures/` — All figure assets (PDF preferred for vectors, PNG ≥ 300 DPI for raster).
-- **TAB_PACKAGE**: `booktabs` — Three-line table style; no vertical rules.
+- **TAB_PACKAGE**: `booktabs` — Three-line table style.
+  No vertical rules.
 - **BEST**: `{\color{red}\textbf{value}}` — best score in a column
 - **SECOND**: `{\color{blue}value}` — second-best score in a column
 - **OOS-SYMBOL**: `*` — marks cells where the scale/setting exceeds training distribution
@@ -42,25 +49,28 @@ Table captions go **above** the table.
 
 ```latex
 \begin{table*}
-\caption{\MakeUppercase{Descriptive title of the table.}}
+\caption{Descriptive title of the table}
 \label{tab:name}
 \end{table*}
 ```
 
-- **ALL CAPS** title opener — every table caption begins with ALL CAPS
-- Use `table*` for two-column spanning; `table` for single-column
+- Let the template render caption capitalization, using plain title text unless the venue explicitly asks for capitals.
+  Avoid forcing `\MakeUppercase` over mathematical notation or case-sensitive units.
+- Use `table*` for two-column spanning.
+  `table` for single-column
 - `\caption` before `\label` — IEEE class expects this order for `cleveref` to resolve correctly
-- Do NOT end caption with a period unless the title contains abbreviations
-- Keep title concise; metric names belong in column headers, not the caption
+- Follow the template's caption punctuation consistently.
+- Keep title concise.
+  Metric names belong in column headers, not the caption
 
 **Examples:**
 
 | Type | Caption |
 |------|---------|
-| Quantitative comparison | `QUANTITATIVE COMPARISON ON [DATASET].` |
-| Ablation | `ABLATION STUDY ON [MODULE/DESIGN].` |
-| Cross-dataset | `CROSS-DATASET GENERALIZATION ANALYSIS.` |
-| Complexity | `MODEL COMPLEXITY AND INFERENCE COMPARISON.` |
+| Quantitative comparison | `Quantitative comparison on [DATASET]` |
+| Ablation | `Ablation study on [MODULE/DESIGN]` |
+| Cross-dataset | `Cross-dataset generalization analysis` |
+| Complexity | `Model complexity and inference comparison` |
 
 ### 1.2 Figure Captions
 
@@ -76,12 +86,13 @@ Figure captions go **below** the figure.
 - **Sentence case** (not ALL CAPS) for figure captions
 - For sub-figures, label as `(a)`, `(b)`, `(c)` — lowercase letter in parentheses
 - When referencing sub-figures inline: `Fig. 1(a)`, `Figs. 1(a)–(c)`
-- Use `figure*` for two-column spanning; `figure` for single-column
+- Use `figure*` for two-column spanning.
+  `figure` for single-column
 
 **Sub-figure layout conventions:**
-- Arrange sub-figures horizontally when ≤ 3 items; stack vertically when > 3
+- Arrange panels in rows and columns that preserve legibility and the comparison being made.
 - Maintain consistent width across sub-figures within the same row
-- Sub-figure labels should be bold or underlined for clarity
+- Use the template's subfigure label style consistently.
 - Include scale indicators (reference bar or magnification label) in all visual comparison figures
 
 **Examples:**
@@ -107,7 +118,7 @@ Begin every table note with **ALL CAPS**, preceded by `Note—`:
 ```latex
 \begin{tablenotes}
 \item[Note—] {\textbf{QUANTITATIVE COMPARISON ON [DATASET] AT SCALES ... .}}
-\item[$\dagger$] {Training set includes this scale / setting.}
+\item[$\dagger$] {Method trained under a different setting.}
 \item[$*$]   {INDICATES THAT THE SCALE IS OUT OF THE TRAINING DISTRIBUTION.}
 \end{tablenotes}
 ```
@@ -118,7 +129,7 @@ Begin every table note with **ALL CAPS**, preceded by `Note—`:
 
 ### 2.2 Symbol Footnotes
 
-Use `*.` to mark cells where the scale/setting exceeds training distribution:
+Use `*` to mark cells where the scale/setting exceeds training distribution:
 
 ```latex
 \item[$*$] {INDICATES THAT THE SCALE IS OUT OF THE TRAINING DISTRIBUTION.}
@@ -132,6 +143,8 @@ Use `†` for methods trained at a different setting:
 
 Use `‡` for statistical significance:
 
+Use this symbol only when a suitable statistical test was performed and its actual threshold or result is available.
+
 ```latex
 \item[$\ddagger$] {Statistically significant improvement over the baseline ($p < 0.05$).}
 ```
@@ -140,11 +153,15 @@ Use `‡` for statistical significance:
 
 ### 2.3 Note Content Rules
 
-- **Quant comparison notes**: State metric abbreviation, dataset name, and scale/range in ALL CAPS; explain symbols in mixed case
-- **Ablation notes**: Define each module abbreviation once in the note; reference figure panels if needed
-- **Complexity notes**: Define `#params`, `FLOPs`, `FPS` on first use; specify hardware context
+- **Quant comparison notes**: State metric abbreviation, dataset name, and scale/range in ALL CAPS.
+  Explain symbols in mixed case
+- **Ablation notes**: Define each module abbreviation once in the note.
+  Reference figure panels if needed
+- **Complexity notes**: Define `#params`, `FLOPs`, `FPS` on first use.
+  Specify hardware context
 - **Cross-dataset notes**: Clarify "Seen" vs. "Unseen" column groupings explicitly
-- **General**: All symbols used in the table must be defined in the note; no orphan symbols
+- **General**: All symbols used in the table must be defined in the note.
+  No orphan symbols
 
 ---
 
@@ -200,14 +217,14 @@ Apply color-and-bold marking **per-column**, not per-row.
 % ✅ Good: booktabs three-line, color-best result, caption before label
 \begin{table}[!t]
   \centering
-  \caption{QUANTITATIVE COMPARISON ON [DATASET].}
+  \caption{Quantitative comparison on [DATASET]}
   \label{tab:comparison}
   \begin{tabular}{lcc}
     \toprule
     Method & PSNR $\uparrow$ & SSIM $\uparrow$ \\
     \midrule
     Baseline-A & 28.50 & 0.82 \\
-    Baseline-B & 29.12 & 0.85 \\
+    Baseline-B & {\color{blue}29.12} & {\color{blue}0.85} \\
     \textbf{\color{red}Ours} & \textbf{\color{red}31.44} & \textbf{\color{red}0.91} \\
     \bottomrule
   \end{tabular}
@@ -223,7 +240,7 @@ Apply color-and-bold marking **per-column**, not per-row.
     Baseline-A & 28.50 & 0.82 \\ \hline
   \end{tabular}
 \end{table}
-% IEEE LaTeX never uses vertical rules; color-best is missing
+% This project uses booktabs without vertical rules and marks comparable best results.
 ```
 
 ### 4.3 Table with tablenotes
@@ -231,7 +248,7 @@ Apply color-and-bold marking **per-column**, not per-row.
 ```latex
 \begin{table}[!t]
   \centering
-  \caption{QUANTITATIVE COMPARISON ON [DATASET] AT SCALES $\times$2, $\times$4, $\times$6.}
+  \caption{Quantitative comparison on [DATASET] at scales $\times$2, $\times$4, $\times$6}
   \label{tab:main}
   \begin{threeparttable}
     \begin{tabular}{lcccccc}
@@ -241,15 +258,17 @@ Apply color-and-bold marking **per-column**, not per-row.
       \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
               & PSNR & SSIM & PSNR & SSIM & PSNR & SSIM \\
       \midrule
-      Bicubic   & 31.20 & 0.89 & 25.10 & 0.74 & 21.30 & 0.58 \\
+      Bicubic   & {\color{blue}31.20} & {\color{blue}0.89}
+                & {\color{blue}25.10} & {\color{blue}0.74}
+                & {\color{blue}21.30} & {\color{blue}0.58} \\
       Ours      & \textbf{\color{red}35.44} & \textbf{\color{red}0.96}
                 & \textbf{\color{red}29.52} & \textbf{\color{red}0.91}
-                & \color{blue}23.14\tnote{*} & \color{blue}0.65\tnote{*} \\
+                & {\color{red}\textbf{23.14}}\tnote{*} & {\color{red}\textbf{0.65}}\tnote{*} \\
       \bottomrule
     \end{tabular}
     \begin{tablenotes}
-      \item[Note—] {\textbf{QUANTITATIVE COMPARISON ON [DATASET] AT SCALES $\times$2, $\times$4, $\times$6.
-                     BEST AND SECOND-BEST RESULTS ARE MARKED IN RED AND BLUE, RESPECTIVELY.}}
+      \item[Note—] {\textbf{QUANTITATIVE COMPARISON ON [DATASET] AT SCALES $\times$2, $\times$4, $\times$6.}
+      \textbf{BEST AND SECOND-BEST RESULTS ARE MARKED IN RED AND BLUE, RESPECTIVELY.}}
       \item[$*$] {INDICATES THAT THE SCALE IS OUT OF THE TRAINING DISTRIBUTION.}
     \end{tablenotes}
   \end{threeparttable}
@@ -284,7 +303,8 @@ Apply color-and-bold marking **per-column**, not per-row.
 | Sub-figure reference | `Fig. 1(a)` | `Figure 1a`, `fig. 1a` |
 | Sub-figure range | `Figs. 1(a)–(c)` | `Fig. 1(a)(b)(c)` |
 
-- Use `Figure` at the beginning of a sentence; `Fig.` elsewhere
+- Use `Figure` at the beginning of a sentence.
+  `Fig.` elsewhere
 - Always use dot notation for sub-figures: `Fig. 1(a)`, not `Fig 1a`
 
 ### 5.3 Referring to Sections and Equations
@@ -299,15 +319,19 @@ Apply color-and-bold marking **per-column**, not per-row.
 
 ### 6.1 Font and Spacing
 
-- Table body: `\footnotesize` (9 pt) for camera-ready; confirm target venue requirements
-- Figure labels, legends, scale bars: minimum 8 pt; 9–10 pt preferred for axis tick labels
-- Line spacing within tables: 1.0 or `0.95`; do not stretch to fill space
-- Vertical spacing around tables: `\bigskip` or equivalent
+- Use the template's table font size, noting that the point size of `\footnotesize` depends on the class and base size.
+- Figure labels, legends, scale bars: minimum 8 pt.
+  9–10 pt preferred for axis tick labels
+- Line spacing within tables: 1.0 or `0.95`.
+  Do not stretch to fill space
+- Preserve the class's float spacing instead of adding arbitrary `\bigskip` adjustments.
 
 ### 6.2 Table Column Structure
 
-- Use `booktabs`: no vertical rules; `\toprule`, `\midrule`, `\bottomrule`
-- Numeric columns: right-align numbers; text columns: left-align
+- Use `booktabs`: no vertical rules.
+  `\toprule`, `\midrule`, `\bottomrule`
+- Numeric columns: right-align numbers.
+  Text columns: left-align
 - Column headers: **bold**, centered, sentence case or ALL CAPS per venue
 - Multi-column headers: `\multicolumn` with centered text and horizontal rule below
 - Units in column headers: `(dB)`, `(\%)` — not repeated in every cell
@@ -316,15 +340,19 @@ Apply color-and-bold marking **per-column**, not per-row.
 ### 6.3 Figure Layout
 
 - Preferred formats: PDF (vector) > PNG (≥ 300 DPI) > TIFF
-- Preferred widths: single-column (~3.5 in) or double-column (~7.0 in); respect margins
-- Use `subcaption` or `subfig` package; label as `(a)`, `(b)`, `(c)`
+- Preferred widths: single-column (~3.5 in) or double-column (~7.0 in).
+  Respect margins
+- Use one subfigure package supported by the template and its matching commands.
+  The `\subfloat` examples use `subfig`, whereas `subcaption` uses its own supported interfaces.
+  Avoid loading both stacks or overriding IEEEtran caption formatting unintentionally.
 - Multi-panel comparisons: sort left-to-right by ascending quality or alphabetically
-- Always include: axis labels, tick marks, unit indicators, colorbar for heatmaps
+- Include axis labels, units, scale indicators, and colorbars where the figure actually uses those quantities.
 - Scale indicators: reference bar or magnification label (`×4`) in all reconstruction figures
 
 ### 6.4 Positioning
 
-- Use `[!htbp]` placement hint: prefer here → top → bottom → page float
+- Use placement hints supported by the template, such as `[!t]` for a top float when appropriate.
+  A placement hint does not guarantee the rendered location, which must be inspected in the PDF.
 - Place tables and figures as close to their first reference as possible
 - Do not force tables to the bottom of a page where they spill across columns
 
@@ -334,17 +362,20 @@ Apply color-and-bold marking **per-column**, not per-row.
 
 Before submission, verify:
 
-- [ ] All table captions are above the table; all figure captions are below
-- [ ] Table captions begin with ALL CAPS; figure captions use sentence case
-- [ ] Each `*.` symbol in the table has a corresponding `item[$*]` in `tablenotes`
-- [ ] `*. INDICATES THAT THE SCALE IS OUT OF THE TRAINING DISTRIBUTION.` is present if OOS scales exist
-- [ ] BEST cells use `{\color{red}\textbf{...}}`; SECOND cells use `{\color{blue}...}`
+- [ ] All table captions are above the table.
+  All figure captions are below
+- [ ] Caption capitalization and punctuation follow the actual venue template
+- [ ] Each `*` marker has a corresponding `\item[$*$]` explanation in `tablenotes`
+- [ ] Out-of-distribution markers identify settings outside the actual training distribution
+- [ ] BEST cells use `{\color{red}\textbf{...}}`.
+  SECOND cells use `{\color{blue}...}`
 - [ ] Color marking is per-column, not per-row
 - [ ] Sub-figures are labeled `(a)`, `(b)`, `(c)` and referenced as `Fig. 1(a)`
-- [ ] All scale bars, colorbars, and axis labels are present in every figure
+- [ ] Scale bars, colorbars, and axis labels are present wherever applicable
 - [ ] In-text references use `Table I`, `Fig. 1`, `Section II-B`, `Eq. (1)` conventions
 - [ ] `tablenotes` used instead of `\footnote` inside table environments
-- [ ] No vertical rules in tables; `booktabs` style throughout
+- [ ] No vertical rules in tables.
+  `booktabs` style throughout
 - [ ] Precision is consistent within each numeric column
 - [ ] `\caption` precedes `\label` in every float environment
 

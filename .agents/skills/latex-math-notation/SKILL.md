@@ -9,17 +9,22 @@ metadata:
 
 ## Codex Invocation
 
-Use this skill when the task matches the source rule's scope or when the user names this section/artifact. Apply it after the project-level AGENTS.md intake and alongside only the focused skills required by the task.
-The source Cursor glob was **/{main,paper,manuscript,ms,article,tex,submission}.{tex,sty}; Codex dispatches by task and artifact instead of evaluating Cursor glob syntax.
-Do not invent missing evidence to satisfy a pattern. If a source rule requires a dataset, numeric result, code URL, limitation, or venue convention that is unavailable, mark it as missing and report the verification item.
+Use this skill when the task matches the source rule's scope or when the user names this section/artifact.
+Apply it after the project-level AGENTS.md intake and alongside only the focused skills required by the task.
+The source Cursor glob was `**/{main,paper,manuscript,ms,article,tex,submission}.{tex,sty}`.
+Codex dispatches by task and artifact instead of evaluating Cursor glob syntax.
+Do not invent missing evidence to satisfy a pattern.
+If a source rule requires a dataset, numeric result, code URL, limitation, or venue convention that is unavailable, mark it as missing and report the verification item.
 
 # Mathematical Notation
 
-> **Note**: Applies to `main.tex` whenever mathematical content dominates (methodology / experiments / supplementary). Borrowed from the conventions of `IEEEtran` papers in CV/remote-sensing.
+> **Note**: Applies to `main.tex` whenever mathematical content dominates (methodology / experiments / supplementary).
+> Borrowed from the conventions of `IEEEtran` papers in CV/remote-sensing.
 
 ## Core Principle
 
-Notation must be consistent across the paper: same symbol means the same thing, different symbols look different. Document every new symbol in the Preliminaries subsection before using it.
+Notation must be consistent across the paper, with each symbol retaining its meaning.
+Define symbols before use, collecting shared notation in Preliminaries when that helps the reader.
 
 ## Constants
 
@@ -32,15 +37,15 @@ Notation must be consistent across the paper: same symbol means the same thing, 
 - Use `\mathcal{}` for sets and random variables: $\mathcal{V}$, $\mathcal{M}$, $\mathcal{T}$
 - Use `\mathbf{}` for matrices and vector-valued bold symbols: $\mathbf{F}$, $\mathbf{Y}$
 - Use `\mathrm{}` for operator names: `\mathrm{GAP}`, `\mathrm{MLP}`, `\mathrm{UpdateNet}`
-- Use `\mathbf{R}^{n\times m}` (or `\mathbb{R}^{n\times m}`) for vector spaces, consistently throughout
-- Define each new symbol the first time it appears in the Preliminaries subsection; reuse without redefinition elsewhere
+- Use `\mathbb{R}^{n\times m}` for real-valued spaces when the template supports it, preserving an established manuscript convention if one is already defined.
+- Define each new symbol at first use or in an earlier notation block, then reuse it consistently.
 
-### ❌ DON'T
+### ❌ AVOID
 
-- Don't mix italic (`$x$`) and upright (`$\mathrm{x}$`) for function/operator names — pick one
-- Don't overload symbols: if `$X$` is a feature map and `$X_0$` is the initial feature map, do not also use `$X_0$` for "the first method"
-- Don't typeset brackets and parens inconsistently: stick with `[\cdot;\cdot]` for concatenation
-- Don't write multi-line inline formulas when `\begin{equation}` is available
+- Do not mix italic (`$x$`) and upright (`$\mathrm{x}$`) for function/operator names — pick one
+- Do not overload symbols: if `$X$` is a feature map and `$X_0$` is the initial feature map, do not also use `$X_0$` for "the first method"
+- Do not typeset brackets and parens inconsistently: stick with `[\cdot;\cdot]` for concatenation
+- Do not write multi-line inline formulas when `\begin{equation}` is available
 
 ## Patterns
 
@@ -68,8 +73,7 @@ Notation must be consistent across the paper: same symbol means the same thing, 
 
 ```latex
 % ✅ Good: video as sequence, indexed symbolically
-Let $\mathcal{V} = \{I_0, I_1, \ldots, I_T\}$ denote an input video
-sequence with $T + 1$ frames.
+Let $\mathcal{V} = (I_0, I_1, \ldots, I_T)$ denote an input video sequence with $T + 1$ frames.
 ```
 
 ```latex
@@ -82,7 +86,8 @@ Let $V = \{I_0, ..., I_T\}$ denote an input video sequence.
 
 - **Clarity**: `\mathbf{}` vs `\mathcal{}` vs `\mathrm{}` makes logic visible at a glance
 - **Refactor safety**: Notation declared once in Preliminaries is easy to update paper-wide
-- **Reviewer trust**: Consistent symbols signal discipline; mismatched notation is a common complaint
+- **Reviewer trust**: Consistent symbols signal discipline.
+  Mismatched notation is a common complaint
 
 ## Related Skills
 
@@ -92,5 +97,7 @@ Let $V = \{I_0, ..., I_T\}$ denote an input video sequence.
 ## Remember
 
 - Upright operators (`\mathrm{}`), italic features (`$X$`), bold matrices (`\mathbf{}`), calligraphic sets (`\mathcal{}`)
-- Define a symbol before using it; do not redefine later
-- Concatenation uses `[a; b]` semicolon, with thin spaces before/after
+- Define a symbol before using it.
+  Do not redefine later
+- Concatenation may use `[a; b]` as defined in the manuscript.
+  Mathematical separators and spacing commands such as `\;` are technical syntax, covered by the prose semicolon exception.

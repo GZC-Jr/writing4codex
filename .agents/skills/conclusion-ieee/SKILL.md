@@ -9,23 +9,31 @@ metadata:
 
 ## Codex Invocation
 
-Use this skill when the task matches the source rule's scope or when the user names this section/artifact. Apply it after the project-level AGENTS.md intake and alongside only the focused skills required by the task.
-The source rule had no file glob; Codex dispatches it by task and artifact.
-Do not invent missing evidence to satisfy a pattern. If a source rule requires a dataset, numeric result, code URL, limitation, or venue convention that is unavailable, mark it as missing and report the verification item.
+Use this skill when the task matches the source rule's scope or when the user names this section/artifact.
+Apply it after the project-level AGENTS.md intake and alongside only the focused skills required by the task.
+The source rule had no file glob.
+Codex dispatches it by task and artifact.
+Do not invent missing evidence to satisfy a pattern.
+If a source rule requires a dataset, numeric result, code URL, limitation, or venue convention that is unavailable, mark it as missing and report the verification item.
 
 # Conclusion Writing
 
-> **Note**: Use this skill when drafting/revising `\section{Conclusion}` of a top-tier journal or conference paper. The `Despite ... limitations remain ...` pivot sentence is the canonical closing pattern across IEEE T-PAMI, TIP, CVPR, ICCV, ICRA, and related venues.
+> **Note**: Use this skill when drafting/revising `\section{Conclusion}` of a top-tier journal or conference paper.
+> The `Despite ... limitations remain ...` pivot sentence is the canonical closing pattern across IEEE T-PAMI, TIP, CVPR, ICCV, ICRA, and related venues.
 
 ## Core Principle
 
-The Conclusion is **one block**, **three beats**:
+The Conclusion covers **three content roles**, using the paragraph structure required by the venue:
 
-1. **Recap** — restate the contributions using a different angle from the abstract and introduction; do not copy-paste sentences
-2. **Limitations** — opened by the literal pivot phrase *"Despite these promising results, several limitations remain."*; list 1-2 scoped limitations
-3. **Future work** — same number of bullet-sentences as limitations; pair each limitation with a future direction
+1. **Recap** — restate the contributions using a different angle from the abstract and introduction.
+   Do not copy-paste sentences
+2. **Limitations** — identify concrete, scoped limitations with an explicit transition.
+   Use the suggested pivot phrase when it fits the findings.
+3. **Future work** — same number of bullet-sentences as limitations.
+   Pair each limitation with a future direction
 
-Total length: **200-260 words** for journal papers, **80-120** for conference. No new equations, no new terminology, no new comparisons.
+Total length: **200-260 words** for journal papers, **80-120** for conference.
+No new equations, no new terminology, no new comparisons.
 
 ## Constants
 
@@ -37,18 +45,21 @@ Total length: **200-260 words** for journal papers, **80-120** for conference. N
 
 ### ✅ DO
 
-- **Recap** with verbs like *"proposed"*, *"designed"*, *"introduced"*; emphasize what you built, not what you found
+- **Recap** contributions with passive forms such as *"was proposed"*, *"was designed"*, or *"was introduced"*, choosing tense consistently with the manuscript.
 - **Limitations** with explicit cost/limitation: *"inference cost remains a bottleneck on edge devices"*, *"significant drop in FPS when facing extreme conditions"*
 - **Future work** with parallel scoping: pair each limitation with a `will focus on ...` sentence
-- Use the literal **pivot phrase** *"Despite these promising results, several limitations remain."* as the second paragraph's opener
+- Introduce limitations explicitly, using *"Despite these promising results, several limitations remain."* when it fits or an equally specific transition.
 
-### ❌ DON'T
+### ❌ AVOID
 
-- Don't repeat the abstract sentence-for-sentence; change emphasis
-- Don't introduce new experiments or new baselines (Conclusion is closed-world)
-- Don't use *"we have proposed a novel method..."* — that's already in the Introduction
-- Don't end with *"we hope this work will inspire more research in the field"*; reviewers roll their eyes
-- Don't write more than 2 sentences for any of the 3 beats; balance matters
+- Do not repeat the abstract sentence-for-sentence.
+  Change emphasis
+- Do not introduce new experiments or new baselines (Conclusion is closed-world)
+- Avoid author-led recap statements such as *"we have proposed a novel method..."*, preferring a passive restatement that adds a different angle from the Introduction.
+- Do not end with *"we hope this work will inspire more research in the field"*.
+  Reviewers roll their eyes
+- Do not let one content role consume the conclusion's word budget.
+  Keep the recap, limitations, and future directions balanced, adjusting sentence counts to the findings.
 
 ## Patterns
 
@@ -59,32 +70,18 @@ Total length: **200-260 words** for journal papers, **80-120** for conference. N
 \section{Conclusion}
 \label{sec:conclusion}
 
-In this work, a novel method is proposed for the task. By integrating
-task-relevant information into the feature extraction module and
-leveraging an innovative upsampler, the proposed method effectively
-overcomes the inherent limitations of conventional approaches.
-Extensive experiments demonstrate the superiority of the proposed
-method in reconstructing high-quality outputs across varying
-conditions. This work advances the capability of the method under
-different requirements in practical systems.
+In this work, a method was proposed for [task].
+Task-relevant information was integrated into feature extraction, and an upsampler was designed for [supported function].
+Evaluation on [benchmark] demonstrated [verified finding] under [conditions].
 
-Despite these promising results, several limitations remain. Current
-methods experience a significant drop in FPS when facing extreme
-upscaling factors, which hinders real-time deployment. Moreover,
-the model's memory footprint is currently optimized for offline
-processing on a desktop GPU rather than on-board inference on
-resource-constrained hardware. In addition, the proposed method
-relies on a fixed taxonomy; adaptation to new scenarios with
-reduced data volumes has not yet been investigated.
+Despite these promising results, several limitations remain.
+Current methods experience a significant drop in FPS when facing extreme upscaling factors, which hinders real-time deployment.
+Moreover, the model's memory footprint is currently optimized for offline processing on a desktop GPU rather than on-board inference on resource-constrained hardware.
+In addition, the proposed method relies on a fixed taxonomy, and adaptation to new scenarios with reduced data volumes has not yet been investigated.
 
-Future research will therefore focus on developing strategies to
-maintain stable inference speed under extreme conditions.
-Moreover, we plan to investigate lightweight and memory-efficient
-architectures to achieve real-time inference on edge devices,
-thereby substantially reducing the memory requirements. In
-addition, future work will also explore adaptation to new scenarios
-with reduced data volumes, aiming to further improve the practicality
-and scalability of the method.
+Future research will therefore focus on developing strategies to maintain stable inference speed under extreme conditions.
+Moreover, lightweight and memory-efficient architectures will be investigated to achieve real-time inference on edge devices, thereby substantially reducing the memory requirements.
+In addition, adaptation to new scenarios with reduced data volumes will be explored to further improve the practicality and scalability of the method.
 ```
 
 ```latex
@@ -111,34 +108,27 @@ and scalability of the method.
 ### ✅ Good Limitations Beat
 
 > "Despite these promising results, several limitations remain.
-> Current methods experience a significant drop in FPS when facing
-> extreme conditions, which hinders real-time deployment. Moreover,
-> the model's memory footprint is currently optimized for offline
-> processing on a desktop GPU rather than on-board inference on
-> resource-constrained hardware."
+> Current methods experience a significant drop in FPS when facing extreme conditions, which hinders real-time deployment.
+> Moreover, the model's memory footprint is currently optimized for offline processing on a desktop GPU rather than on-board inference on resource-constrained hardware."
 
 ### ✅ Good Future-Work Beat (paired parallelism)
 
-> "Future research will therefore focus on developing strategies to
-> maintain stable inference speed under extreme conditions.
-> Moreover, we plan to investigate lightweight and memory-efficient
-> architectures to achieve real-time inference on edge devices,
-> thereby substantially reducing the memory requirements."
+> "Future research will therefore focus on developing strategies to maintain stable inference speed under extreme conditions.
+> Moreover, lightweight and memory-efficient architectures will be investigated to achieve real-time inference on edge devices, thereby substantially reducing the memory requirements."
 
 ### ❌ Bad Limitations Beat (vague, no numbers)
 
-> "Although our method is very effective, there are still some
-> challenges. In the future, we will try to address them and improve
-> the performance further. Hopefully our method can be applied to more
-> scenarios."
+> "Although our method is very effective, there are still some challenges.
+> In the future, we will try to address them and improve the performance further.
+> Hopefully our method can be applied to more scenarios."
 
 ## Beat Counters
 
 | Beat | Marker phrase (any of) | Journal word count |
 |------|------------------------|--------------------|
-| Recap | "we proposed", "we designed", "extensive experiments demonstrate" | 60-90 words |
+| Recap | "was proposed", "was designed", "extensive experiments demonstrate" | 60-90 words |
 | Limitations | "Despite ... limitations remain" | 60-90 words |
-| Future work | "Future ... will focus on", "Future ... will explore" | 60-90 words |
+| Future work | "Future ... will focus on", "will be investigated", "will be explored" | 60-90 words |
 
 ## Benefits
 
@@ -155,7 +145,8 @@ and scalability of the method.
 ## Remember
 
 - Three beats: recap, limitation, future
-- Begin the limitations beat with the literal phrase *"Despite these promising results, several limitations remain."*
+- Introduce the limitations explicitly with a transition that fits the findings.
 - Each limitation must pair with a future-direction sentence in the next beat
-- ~200-260 words for journals; shorter for conferences
+- ~200-260 words for journals.
+  Shorter for conferences
 - Never copy sentences from the abstract or introduction
